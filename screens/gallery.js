@@ -1,12 +1,20 @@
 import * as React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import { Header } from 'react-native-elements';
+import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import GridImageView from 'react-native-grid-image-viewer'
+
+const data = [
+        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
+        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
+        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
+        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
+     ];
 
 const Gallery = () => {
-    return (
 
+    return (
         <View style={styles.container}>
-                <Text>Hello Gallery</Text>
+                <GridImageView data={data}
+                />
         </View>
     );
 }
@@ -14,8 +22,6 @@ const Gallery = () => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        justifyContent: 'center',
-        alignItems: 'center',
     }
 })
 
