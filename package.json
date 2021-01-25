@@ -31,6 +31,7 @@
     "react-native-gesture-handler": "^1.9.0",
     "react-native-grid-image-viewer": "^1.0.6",
     "react-native-image-viewing": "^0.2.0",
+    "react-native-infinite-scroll-grid": "^0.1.0",
     "react-native-paper": "^4.6.0",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
