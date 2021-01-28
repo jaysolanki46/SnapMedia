@@ -22,19 +22,36 @@ const numColumns = 2;
 
 export default class followers extends React.Component {
 
-    renderItem = ({item, index}) => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+        }
+    }
 
-        return (
-            <TouchableOpacity style={styles.item}>
-                   <ImageBackground source={{uri: item.image}} style={styles.itemImage}>
-                        <Text style={styles.itemText}>&nbsp;&nbsp;{item.name}</Text>
-                   </ImageBackground>
-            </TouchableOpacity>
-        );
-    };
+    componentDidMount() {
+        const followersAPI = "https://api.unsplash.com/users/unsplash/following?client_id=1bOOumUhBBK2nafMvUBFe8duLFslnv5oGs9VPR7uTpM";
 
+        fetch(followersAPI)
+            .then((response) => response.json())
+            .then((json) => this.setState({ data: json }))
+            .catch((error) => { console.log(error) });
+
+    }
 
     render() {
+
+        const result = this.state;
+        var followers = result.data.map((follower) => {
+                return {
+                    "id": follower.id,
+                    "name": follower.first_name,
+                    "profile": follower.profile_image.large,
+                }
+        });
+
+        //console.log(followers);
+
         return (
                 <View style={styles.container}>
                        <View style={styles.headerDiv}>
@@ -43,7 +60,7 @@ export default class followers extends React.Component {
                        </View>
 
                         <FlatList
-                            data={data}
+                            data={followers}
                             style={styles.blocks}
                             renderItem={this.renderItem}
                             numColumns={2}
@@ -51,6 +68,17 @@ export default class followers extends React.Component {
                 </View>
             );
     }
+
+    renderItem = ({item, index}) => {
+
+            return (
+                <TouchableOpacity style={styles.item}>
+                       <ImageBackground source={{uri: item.profile}} style={styles.itemImage}>
+                            <Text style={styles.itemText}>&nbsp;&nbsp;{item.name}</Text>
+                       </ImageBackground>
+                </TouchableOpacity>
+            );
+        };
 }
 
 const styles = StyleSheet.create({
@@ -90,8 +118,8 @@ const styles = StyleSheet.create({
 
     itemText: {
         marginTop: 'auto',
-        //textAlign: 'center',
-        color: '#fff',
+        textAlign: 'center',
+        color: 'white',
         fontWeight: 'bold',
         fontSize: 15,
         backgroundColor: '#000',
