@@ -1,22 +1,49 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
+import {StyleSheet, Text, View, ActivityIndicator, FlatList} from 'react-native';
 import GridImageView from 'react-native-grid-image-viewer'
 
-const data = [
-        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
-        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
-        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
-        { image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png'},
-     ];
+export default class gallery extends React.Component {
 
-const Gallery = () => {
+    constructor(props) {
+        super(props);
 
-    return (
-        <View style={styles.container}>
-                <GridImageView data={data}
-                />
-        </View>
-    );
+        this.state = {
+            data: [],
+        }
+    }
+
+    componentDidMount() {
+        const apiUrl = "https://api.unsplash.com/photos/random?count=100&client_id=1bOOumUhBBK2nafMvUBFe8duLFslnv5oGs9VPR7uTpM";
+        fetch(apiUrl)
+                .then((response) => response.json())
+                .then((json) =>
+                    this.setState({
+                        data: json,
+                    })
+                    //console.log(json)
+                )
+                .catch( (error) => {
+                    console.log(error)
+                });
+    }
+
+
+    render() {
+
+        const result = this.state;
+        var images = result.data.map((data) => {
+            return {
+                "image" : data.urls.full
+            }
+        });
+        //console.log(images);
+
+        return (
+            <View style={styles.container}>
+                <GridImageView data={images}/>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -24,5 +51,3 @@ const styles = StyleSheet.create({
         flex:1,
     }
 })
-
-export default Gallery;
