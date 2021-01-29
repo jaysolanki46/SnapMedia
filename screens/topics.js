@@ -2,31 +2,53 @@ import * as React from 'react';
 import {StyleSheet, Text, View, TouchableHighlight, ScrollView} from 'react-native';
 import {Button} from 'react-native-elements';
 
-const data = [
-            {id:1, title: "Topic 1"},
-            {id:2, title: "Topic 2"},
-            {id:3, title: "Topic 3"},
-            {id:4, title: "Topic 4"},
-            {id:5, title: "Topic 5"},
-            {id:6, title: "Topic 6"},
-            {id:7, title: "Topic 7"},
-];
-
 export default class topics extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+        }
+    }
+
+    componentDidMount() {
+        const topicsAPI = "https://api.unsplash.com/topics?client_id=1bOOumUhBBK2nafMvUBFe8duLFslnv5oGs9VPR7uTpM";
+
+        fetch(topicsAPI)
+            .then((response) => response.json())
+            .then((json) => this.setState({ data: json}))
+            .catch((error) => console.log(error));
+    }
+
     render() {
+
+        const result = this.state;
+        //console.log(result);
+
+        var topics = result.data.map((topic) => {
+            return {
+                "topic": topic.title,
+            }
+        })
+        //console.log(topics);
+
         return (
               <View style={styles.container}>
-                    {this.renderKeywordBoxes("Test")}
-                    {this.renderKeywordBoxes("Test2")}
-                    {this.renderKeywordBoxes("da")}
-                    {this.renderKeywordBoxes("da")}
+                    {result.data.map((topic) => {
+                                return this.renderKeywordBoxes(topic.id, topic.title)
+                                //console.log(topic.title)
+                    })}
               </View>
         );
     }
 
-    renderKeywordBoxes(name) {
+    renderKeywordBoxes(id, name) {
 
-        return <TouchableHighlight style={styles.box}><Text style={styles.white}>Topic {name}</Text></TouchableHighlight>
+        return <TouchableHighlight key={id} onPress={() => this.getTopicImages(id)} style={styles.box}><Text style={styles.white}>{name}</Text></TouchableHighlight>
+    }
+
+    getTopicImages(id) {
+        alert(id);
     }
 }
 
