@@ -14,6 +14,7 @@ import Gallery from './screens/gallery'
 import Followers from './screens/followers'
 import Topics from './screens/topics'
 
+
 const Tab = createMaterialTopTabNavigator();
 
 const App = () => {

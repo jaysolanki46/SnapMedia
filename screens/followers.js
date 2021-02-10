@@ -1,24 +1,18 @@
 import * as React from 'react';
 import {StyleSheet, Text, View, ImageBackground, ScrollView, FlatList, TouchableOpacity, Dimensions, Image} from 'react-native';
-
-const data = [
-        { key: '1', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'Ravi Kishan'},
-        { key: '2', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'B'},
-        { key: '3', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'C'},
-        { key: '4', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '5', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '6', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '7', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '8', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '9', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '10', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '11', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-        { key: '12', image: 'https://pbs.twimg.com/profile_images/486929358120964097/gNLINY67_400x400.png', name: 'D'},
-
-     ];
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const headerImage = { uri: "https://images.unsplash.com/photo-1550082849-c4603c163b37?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" };
 const numColumns = 2;
+
+function DetailsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
+      <Text>Details!</Text>
+    </View>
+  );
+}
 
 export default class followers extends React.Component {
 
@@ -72,13 +66,19 @@ export default class followers extends React.Component {
     renderItem = ({item, index}) => {
 
             return (
-                <TouchableOpacity style={styles.item}>
+                //onPress={() => this.getFollowerImages(item.id)}
+                <TouchableOpacity onPress={() => this.getFollowerImages(item.id)}
+                style={styles.item}>
                        <ImageBackground source={{uri: item.profile}} style={styles.itemImage}>
                             <Text style={styles.itemText}>&nbsp;&nbsp;{item.name}</Text>
                        </ImageBackground>
                 </TouchableOpacity>
             );
         };
+
+    getFollowerImages(id) {
+            alert(id);
+    }
 }
 
 const styles = StyleSheet.create({
